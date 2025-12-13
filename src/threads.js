@@ -3954,7 +3954,32 @@ Process.prototype.reportCombine = function (list, reporter) {
     }
     return this.evaluate(reporter, new List(parms));
 };
-
+Process.prototype.reportApplies = function(fn, type, list) {
+// Every & Some - report if a predicate satifies any or all items in a list respectively.
+ // if the predicate uses formal parameters instead of implicit empty slots there are 2 additional optional parameters:
+    // #1 - element
+    // #2 - optional | index
+    // #3 - optional | source list
+let array = list.itemsArray();
+let boolean;
+let implicit = fn.inputs.length === 0;
+switch (type) {
+case "any" :
+return array.some((element, index) => {
+boolean = invoke(fn, implicit ? new List([element]) : new List([element, index + 1, list]));
+boolean = boolean === true;
+return boolean;
+});
+case "all":
+return array.every((element, index) => {
+boolean = invoke(fn, implicit ? new List([element]) : new List([element, index + 1, list]));
+boolean = boolean === true;
+return boolean;
+});
+default:
+return false;
+}
+}
 Process.prototype.reportListAggregation = function (list, selector) {
     // private - used by reportCombine to optimize certain commutative
     // operations such as sum, product, min, max hyperized all at once
