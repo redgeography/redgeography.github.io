@@ -2274,10 +2274,10 @@ SpriteMorph.prototype.primitiveBlocks = function () {
             spec: '$blitz combine %l using %repRing'
         },
         reportApplies: {
-            type: "reporter",
+            type: "predicate",
             category: "lists",
             spec: "%predRing applies to %anyall in %l ?",
-			defaults: [null,["any"]]
+			defaults: [null,["any\n"]]
         },
         reportAtomicSort: {
             type: "reporter",
