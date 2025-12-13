@@ -853,6 +853,14 @@ SyntaxElementMorph.prototype.labelParts = {
         tags: 'read-only static',
         menu: 'typesMenu'
     },
+	 '%anyall': {
+        type: 'input',
+        tags: 'read-only static',
+        menu: {
+			any: ["any"]
+			all: ["all"]
+		}
+    },
     '%mapValue': {
         type: 'input',
         tags: 'read-only static',
