@@ -2277,7 +2277,7 @@ SpriteMorph.prototype.primitiveBlocks = function () {
             type: "reporter",
             category: "lists",
             spec: "%predRing applies to %anyall in %l ?",
-			defaults: [["any"]]
+			defaults: [null,["any"]]
         },
         reportAtomicSort: {
             type: "reporter",
