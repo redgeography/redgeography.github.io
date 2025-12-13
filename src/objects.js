@@ -2122,7 +2122,14 @@ SpriteMorph.prototype.primitiveBlocks = function () {
             spec: '%mlfunc %lists',
             defaults: [['append']]
         },
-    */
+   */
+        reportListBoolean: { 
+            type: "predicate",
+            category: 'lists',
+            spec: '%listflag %l',
+            defaults: [['empty']]
+        },
+
         reportConcatenatedLists: {
             type: 'reporter',
             category: 'lists',
