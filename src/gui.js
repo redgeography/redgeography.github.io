@@ -5107,7 +5107,7 @@ IDE_Morph.prototype.settingsMenu = function () {
         List.prototype.enableWrapping,
         'uncheck to disable\nwrapping list indices',
         'check for wrapping\nlist indices',
-        true
+        false
     );
     addPreference(
         'Persist linked sublist IDs',
