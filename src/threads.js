@@ -2666,9 +2666,16 @@ Process.prototype.reportListContainsItem = function (list, element) {
     return list.contains(element);
 };
 
-Process.prototype.reportListIsEmpty = function (list) {
-    this.assertType(list, 'list');
-    return list.isEmpty();
+Process.prototype.reportListBoolean = function (list, type) {
+    this.assertType(list, "list");
+    switch (this.inputOption(type)){
+		case "empty":
+		return list.isEmpty();
+		case "linked":
+		return list.isLinked;
+		default:
+		return false;
+	}
 };
 
 Process.prototype.reportRank = function (data) {
