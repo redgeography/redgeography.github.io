@@ -2816,6 +2816,10 @@ SpriteMorph.prototype.initBlockMigrations = function () {
             inputs: [['transpose']],
             offset: 1
         },
+		reportListIsEmpty: {
+            selector: "reportListBoolean",
+            inputs: [,["empty"]]
+        },
         reportTranspose: {
             selector: 'reportListAttribute',
             inputs: [['transpose']],
