@@ -2049,7 +2049,7 @@ SpriteMorph.prototype.primitiveBlocks = function () {
         reportListBoolean: {
             type: 'predicate',
             category: 'lists',
-            spec: 'is %l %listflag?',
+            spec: 'is %l %listflag ?',
 			defaults: [null,["empty"]]
 
         },
