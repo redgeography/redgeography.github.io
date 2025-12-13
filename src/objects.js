@@ -2010,6 +2010,16 @@ SpriteMorph.prototype.primitiveBlocks = function () {
             spec: 'all but first of %l',
             code: 'cdr'
         },
+        reportRDC: {
+            type: "reporter",
+            category: "lists",
+            spec: "all but last of %l",
+        },
+       reportSNOC: {
+            type: "reporter",
+            category: "lists",
+            spec: "%l followed by %s",
+        },
         reportListLength: { // deprecated as of v6.6
             dev: true,
             type: 'reporter',
@@ -4125,6 +4135,9 @@ SpriteMorph.prototype.blockTemplates = function (
         blocks.push(block('reportConcatenatedLists'));
         blocks.push(block('reportReshape'));
         blocks.push(block('reportCrossproduct'));
+        blocks.push("-");
+		blocks.push(block("reportSNOC"))
+        blocks.push(block("reportRDC"))
 
         if (SpriteMorph.prototype.showingExtensions) {
             blocks.push('=');
