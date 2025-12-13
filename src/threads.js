@@ -3963,8 +3963,9 @@ Process.prototype.reportApplies = function(fn, type, list) {
 let array = list.itemsArray();
 let boolean;
 let implicit = fn.inputs.length === 0;
-switch (type) {
+switch (this.inputOption(type)) {
 case "any" :
+case "any\n" : //Sigh, it kept saying "random", I think it's because ITEM (random) OF [] in english is ITEM (any) OF [] in other languages. 
 return array.some((element, index) => {
 boolean = invoke(fn, implicit ? new List([element]) : new List([element, index + 1, list]));
 boolean = boolean === true;
