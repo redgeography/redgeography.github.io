@@ -2495,8 +2495,22 @@ Process.prototype.reportSlice = function (list, indices) {
     return list.slice(indices);
 };
 
-// Process - other basic list accessors
 
+Process.prototype.reportSNOC = function (list,value) {
+    this.assertType(list, "list");
+	let result = new List(list.itemsArray().slice());
+	result.add(value);
+	return result;
+
+};
+Process.prototype.reportRDC = function (list) {
+    this.assertType(list, "list");
+	let result = new List(list.itemsArray().slice());
+	result.remove(list.contents.length);
+	return result;
+	
+};
+// Process - other basic list accessors
 Process.prototype.reportListAttribute = function (choice, list) {
     var option = this.inputOption(choice);
     switch (option) {
