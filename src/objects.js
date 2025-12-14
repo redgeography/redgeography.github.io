@@ -3060,8 +3060,8 @@ SpriteMorph.prototype.blockAlternatives = {
     receiveConditionEvent: ['receiveCondition'],
     doRun: ['fork'],
     fork: ['doRun'],
-    reportBlockAttribute: ["doSetBlockAttribute"],
-	doSetBlockAttribute: ["reportBlockAttribute"],
+    // reportBlockAttribute: ["doSetBlockAttribute"],
+	// doSetBlockAttribute: ["reportBlockAttribute"],
 	
     // sensing:
     doAsk: ['bubble', 'doThink', 'doSayFor', 'doThinkFor'],
@@ -3129,6 +3129,7 @@ SpriteMorph.prototype.blockAlternatives = {
         'reportVariadicGreaterThanOrEquals'],
     reportVariadicAnd: ['reportVariadicOr'],
     reportVariadicOr: ['reportVariadicAnd'],
+	reportClamp: ["reportMin","reportMax"],
 
     // variables
     doSetVar: ['doChangeVar'],
