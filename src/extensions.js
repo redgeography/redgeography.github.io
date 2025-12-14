@@ -313,7 +313,7 @@ SnapExtensions.primitives.set(
         if (!(expression instanceof BlockMorph)){
         throw new Error("expecting a expression but getting a " + Process.prototype.reportTypeOf(expression));
         }
-        return script.reify();
+        return expression.reify();
     }
 );
 
