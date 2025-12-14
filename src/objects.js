@@ -1765,7 +1765,7 @@ SpriteMorph.prototype.primitiveBlocks = function () {
             category: "operators",
             spec: "clamp %n from %n to %n",
 			src: `( (prim t reportClamp n min max)
-			(report (max (min (get n) (get min) ) (get max) ) ) )`
+			(report (min (max (get n) (get min) ) (get max) ) ) )`
         },
         reportRandom: {
             type: 'reporter',
