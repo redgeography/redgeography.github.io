@@ -1917,8 +1917,7 @@ SpriteMorph.prototype.primitiveBlocks = function () {
             spec: 'JavaScript function ( %mult%s ) { %code }',
             code: 'js'
         },
-        reportTypeOf: { // only in dev mode for debugging
-            dev: true,
+        reportTypeOf: { 
             type: 'reporter',
             category: 'operators',
             spec: 'type of %s',
@@ -11643,7 +11642,6 @@ StageMorph.prototype.blockTemplates = function (
             blocks.push('-');
             blocks.push(this.devModeText());
             blocks.push('-');
-            blocks.push(block('reportTypeOf'));
             blocks.push(block('reportTextFunction'));
         }
 
