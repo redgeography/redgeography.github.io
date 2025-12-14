@@ -2019,12 +2019,38 @@ SpriteMorph.prototype.primitiveBlocks = function () {
         reportRDC: {
             type: "reporter",
             category: "lists",
-            spec: "all but last of %l",
+            spec: "all but last of %l"
         },
        reportSNOC: {
             type: "reporter",
             category: "lists",
-            spec: "%l followed by %s",
+            spec: "%l followed by %s"
+        },
+      reportRoundRobin: {
+            type: "reporter",
+            category: "lists",
+            spec: "round robin %l",
+		    src: `(
+    (prim t reportRoundRobin list) 
+    (if 
+        (reportListBoolean 
+            (get list) [empty]
+        ) 
+        (report 
+            (list)
+        )
+    ) 
+    (report 
+        (reportSNOC 
+            (cdr 
+                (get list)
+            ) 
+            (item 1 
+                (get list)
+            )
+        )
+    )
+)`
         },
         reportListLength: { // deprecated as of v6.6
             dev: true,
@@ -4171,6 +4197,7 @@ SpriteMorph.prototype.blockTemplates = function (
         blocks.push("-");
 		blocks.push(block("reportSNOC"))
         blocks.push(block("reportRDC"))
+        blocks.push(block("reportRoundRobin"))
 
         if (SpriteMorph.prototype.showingExtensions) {
             blocks.push('=');
