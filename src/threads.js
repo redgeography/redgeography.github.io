@@ -5281,7 +5281,9 @@ Process.prototype.reportBasicMax = function (a, b) {
     }
     return x > y ? x : y;
 };
-
+Process.prototype.reportClamp = function (number, min, max) {
+return this.reportVariadicMax(new List([this.reportVariadicMin(new List([number, min])), max]));
+};
 // Process logic primitives - hyper-variadic applicative order
 
 Process.prototype.reportVariadicLessThan = function (items) {
