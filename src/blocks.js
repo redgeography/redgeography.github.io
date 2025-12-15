@@ -1297,6 +1297,12 @@ SyntaxElementMorph.prototype.labelParts = {
         slots: '%l',
         defaults: 2
     },
+	"%lsts": {
+        type: "multi",
+        slots: "%l",
+        defaults: 1,
+		min: 1
+    },
     '%nums': {
         type: 'multi',
         slots: '%n',
