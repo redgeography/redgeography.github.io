@@ -2342,7 +2342,7 @@ SpriteMorph.prototype.primitiveBlocks = function () {
                             (get value) 
                             (list 
                                 (get index) 
-                                (get list) 
+                                (get lists) 
                                 (get cols)
                             )
                         )
