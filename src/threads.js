@@ -3855,7 +3855,7 @@ Process.prototype.reportFindFirst = function (predicate, list) {
 };
 
 Process.prototype.reportCombine = function (list, reporter) {
-    // Fold - answer an aggregation of all list items from "left to right"
+    // Reduce - answer an aggregation of all list items from "left to right"
     // Distinguish between linked and arrayed lists.
     // if the reporter uses formal parameters instead of implicit empty slots
     // there are two additional optional parameters:
@@ -9987,6 +9987,9 @@ Process.prototype.reportAtomicCombine = function (list, reporter) {
 };
 
 Process.prototype.reportAtomicSort = function (list, reporter) {
+	//Sort - sort the items of a list based on a comparison predicate
+	// #1 - a
+	// #2 - b
     this.assertType(list, 'list');
     var func;
 
@@ -10016,6 +10019,16 @@ Process.prototype.reportAtomicSort = function (list, reporter) {
 };
 
 Process.prototype.reportAtomicGroup = function (list, reporter) {
+	//Group - Group all items of a list by a key
+	// such that it's a list of lists:
+	//		the first item of the list represents a unique value
+	//		the second represents how many values match it from the key
+	//		the third is a list of all the values matching the value after the key is applied
+    // if the reporter uses formal parameters instead of implicit empty slots
+    // there are two additional optional parameters:
+    // #1 - element
+    // #2 - optional | index
+    // #3 - optional | source list
     this.assertType(list, 'list');
     var result = [],
         dict = new Map(),
@@ -10024,6 +10037,7 @@ Process.prototype.reportAtomicGroup = function (list, reporter) {
         len = src.length,
         func,
         i;
+	let implicit = reporter.inputs.length === 0;
 
     // try compiling the reporter into generic JavaScript
     // fall back to the morphic reporter if unsuccessful
@@ -10040,7 +10054,7 @@ Process.prototype.reportAtomicGroup = function (list, reporter) {
     for (i = 0; i < len; i += 1) {
         groupKey = invoke(
             func,
-            new List([src[i]]),
+            implicit ? new List([src[i]]) : new List([src[i], i + 1, list]),
             null,
             null,
             null,
