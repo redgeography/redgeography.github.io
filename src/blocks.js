@@ -14835,7 +14835,7 @@ MultiArgMorph.prototype.isVertical = function () {
 MultiArgMorph.prototype.is3ArgRingInHOF = function () {
     // answer true if I am embedded into a ring inside a HOF block
     // that supports 3 parameters ("item, idx, data")
-    // of which there are currently only MAP, KEEP and FIND
+    // of which there are MAP, KEEP, FIND, APPLIES, and GROUP
     // and their atomic counterparts
     var ring = this.parent,
         block;
@@ -14850,7 +14850,9 @@ MultiArgMorph.prototype.is3ArgRingInHOF = function () {
                         'reportKeep',
                         'reportAtomicKeep',
                         'reportFindFirst',
-                        'reportAtomicFindFirst'
+                        'reportAtomicFindFirst',
+						"reportApplies",
+						"reportAtomicGroup"
                     ],
                     block.selector
                 );
