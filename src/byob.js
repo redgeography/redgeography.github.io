@@ -4811,7 +4811,6 @@ InputSlotDialogMorph.prototype.createSlotTypeButtons = function () {
 
     // slot types
     this.addSlotTypeButton('Color', '%clr');
-    this.addSlotTypeButton('Text', '%txt');
     this.addSlotTypeButton('List', '%l');
     this.addSlotTypeButton('Number', '%n');
     this.addSlotTypeButton('Any type', '%s');
@@ -5308,6 +5307,7 @@ InputSlotDialogMorph.prototype.specialSlotsMenu = function () {
     addSpecialSlotType('multi-line', '%mlt');
     addSpecialSlotType('code', '%code');
     addSpecialSlotType('object', '%obj');
+    addSpecialSlotType("text", "%txt");
     menu.addLine();
     addSpecialSlotType('variables', '%scriptVars');
     addSpecialSlotType('receivers', '%receive');
