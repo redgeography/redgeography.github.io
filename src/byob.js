@@ -4822,6 +4822,7 @@ InputSlotDialogMorph.prototype.createSlotTypeButtons = function () {
     this.addSlotTypeButton('Command\n(C-shape)', ['%cs', '%ca', '%loop']);
     this.addSlotTypeButton('Any\n(unevaluated)', '%anyUE');
     this.addSlotTypeButton('Boolean\n(unevaluated)', '%boolUE');
+	this.addSlotTypeButton('List\n(unevaluated)', '%listUE');
 
     // arity and upvars
     this.slots.radioButtonSingle = this.addSlotArityButton(
