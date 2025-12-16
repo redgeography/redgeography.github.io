@@ -320,6 +320,11 @@ SyntaxElementMorph.prototype.labelParts = {
     '%s': {
         type: 'input'
     },
+    "%listUE": {
+        type: "slot"
+		kind: "list"
+        tags: "unevaluated"
+    },
     '%n': {
         type: 'input',
         tags: 'numeric'
