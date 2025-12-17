@@ -81,7 +81,7 @@ const NONNUMBERS = [true, false, ''];
     // "zum Schneckengang verdorben, was Adlerflug geworden wäre"
     // collecting edge-cases that somebody complained about
     // on Github. Folks, take it easy and keep it fun, okay?
-    // Shit like this is patently ugly and slows Snap down. Tnx!
+    // Stuff like this is patently ugly and slows Snap down. Tnx!
     for (var i = 9; i <= 13; i += 1) {
         NONNUMBERS.push(String.fromCharCode(i));
     }
@@ -2465,7 +2465,18 @@ Process.prototype.reportListItem = function (index, list) {
     }
     return value;
 };
-
+Process.prototype.reportReplacedInList = function (index,list,value) {
+	this.assertType(list, "list");
+	let copy = new List(list.itemsArray().slice());
+	this.doReplaceInList(index,list,value);
+	return copy;
+}
+Process.prototype.reportInsertedInList = function (index,list) {
+	this.assertType(list, "list");
+	let copy = new List(list.itemsArray().slice());
+	this.doInsertInList(index,list,value);
+	return copy;
+}
 // Process - tabular list ops
 
 Process.prototype.reportTranspose = function (list) {
