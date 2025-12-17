@@ -2327,7 +2327,15 @@ Process.prototype.reportCDR = function (list) {
     this.assertType(list, 'list');
     return list.cdr();
 };
-
+Process.prototype.reportAllButOfList = function (index,list) {
+    this.assertType(list, "list");
+if (index instanceof Array && index[0] === "first") {
+	return list.cdr()
+};
+	let copy = new List(list.itemsArray().slice());
+	this.doDeleteFromList(index,copy);
+	return copy;
+};
 Process.prototype.doAddToList = function (element, list) {
     this.assertType(list, 'list');
     if (list.type) {
