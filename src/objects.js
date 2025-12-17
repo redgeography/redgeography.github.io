@@ -2982,8 +2982,7 @@ SpriteMorph.prototype.initBlockMigrations = function () {
 		},
 		reportCDR: {
 		selector: "reportAllButOfList",
-		inputs: [["first"]],
-		offset: 1
+		inputs: [["first"]]
         }
     };
 };
