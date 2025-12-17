@@ -2465,13 +2465,13 @@ Process.prototype.reportListItem = function (index, list) {
     }
     return value;
 };
-Process.prototype.reportReplacedInList = function (index,list,value) {
+Process.prototype.reportReplacedInList = function (value,index,list) {
 	this.assertType(list, "list");
 	let copy = new List(list.itemsArray().slice());
 	this.doReplaceInList(index,list,value);
 	return copy;
 }
-Process.prototype.reportInsertedInList = function (index,list) {
+Process.prototype.reportInsertedInList = function (value,index,list) {
 	this.assertType(list, "list");
 	let copy = new List(list.itemsArray().slice());
 	this.doInsertInList(index,list,value);
