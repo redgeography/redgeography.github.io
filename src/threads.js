@@ -2481,6 +2481,9 @@ Process.prototype.reportReplacedInList = function (value,index,list) {
 }
 Process.prototype.reportInsertedInList = function (value,index,list) {
 	this.assertType(list, "list");
+	if(index instanceof Array && index[0] === "last") {
+	index = "last";
+	};
 	let copy = new List(list.itemsArray().slice());
 	this.doInsertInList(value,index,copy);
 	return copy;
