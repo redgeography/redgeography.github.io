@@ -9864,7 +9864,7 @@ ArgMorph.prototype.justDropped = function () {
 // ArgMorph spec extrapolation (for demo purposes)
 
 ArgMorph.prototype.getSpec = function () {
-    return this.type === 'list' ? '%l' : '%s'; // default
+    return this.type === 'list' ? (this.isUnevaluated ? "listUE" : "%list") : '%s'; // default
 };
 
 // ArgMorph menu
