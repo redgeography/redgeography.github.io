@@ -2120,7 +2120,7 @@ SpriteMorph.prototype.primitiveBlocks = function () {
         doDeleteFromList: {
             type: 'command',
             category: 'lists',
-            spec: 'delete %ida of %l',
+            spec: 'delete %idx of %l',
             defaults: [1],
             code: 'del'
         },
