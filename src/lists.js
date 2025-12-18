@@ -863,7 +863,15 @@ List.prototype.reshape = function (dimensions) {
     // fold the doctored source into the specified dimensions
     return new List(trg).folded(dim);
 };
-
+List.prototype.resize = function(length){
+    let array = this.itemsArray();
+    let result = new List;
+    length = +length;
+      for (let i = 0; i < length; i++) {
+          result.add(array[i % array.length])
+    }
+    return result;
+}
 List.prototype.fillDimensionsFor = function (dimensions, leafCount) {
     // private - answer a copy of the dimensions list with all zeroish
     // values adjusted to accomodate the given overall leaf count from
