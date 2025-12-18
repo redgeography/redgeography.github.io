@@ -2513,7 +2513,14 @@ Process.prototype.reportReshape = function (list, shape) {
     list = list instanceof List ? list : new List([list]);
     return list.reshape(shape);
 };
-
+Process.prototype.reportResize = function (list, length) {
+this.assertType(list, "list");
+this.assertType(length, "number");
+if (!(list instanceof List)) {
+list = new List([list]);
+};
+return list.resize(length);
+}
 Process.prototype.reportSlice = function (list, indices) {
     // currently not in use
     this.assertType(list, 'list');
