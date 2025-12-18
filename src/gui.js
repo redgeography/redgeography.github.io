@@ -7478,7 +7478,6 @@ IDE_Morph.prototype.switchToDevMode = function () {
     var world = this.world();
 
     world.isDevMode = true;
-    Process.prototype.isCatchingErrors = false;
     this.controlBar.updateLabel();
     this.isAutoFill = false;
     this.isDraggable = true;
@@ -7491,10 +7490,7 @@ IDE_Morph.prototype.switchToDevMode = function () {
     // onto the World in dev-mode
     delete world.reactToDropOf;
     this.showMessage(
-        'entering development mode.\n\n'
-            + 'error catching is turned off,\n'
-            + 'use the browser\'s web console\n'
-            + 'to see error messages.'
+        "entering development mode."
     );
 };
 
