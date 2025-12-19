@@ -2539,7 +2539,7 @@ Process.prototype.reportSNOC = function (list,value) {
 Process.prototype.reportRDC = function (list) {
     this.assertType(list, "list");
 	let result = new List(list.itemsArray().slice());
-	result.remove(list.contents.length);
+	result.remove(list.length());
 	return result;
 };
 Process.prototype.reportRoundRobin = function(list){
