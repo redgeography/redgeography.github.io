@@ -2514,7 +2514,6 @@ Process.prototype.reportReshape = function (list, shape) {
     return list.reshape(shape);
 };
 Process.prototype.reportResize = function (list, length) {
-this.assertType(list, "list");
 this.assertType(length, "number");
 if (!(list instanceof List)) {
 list = new List([list]);
