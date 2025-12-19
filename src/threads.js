@@ -5279,7 +5279,9 @@ Process.prototype.reportBasicRandom = function (min, max) {
 Process.prototype.reportModulus = function (a, b) {
     return this.hyper(this.reportBasicModulus, a, b);
 };
-
+Process.prototype.reportRemainder = function (x,y) {
+	return this.hyper(((a,b) => a % b), x, y);
+};
 Process.prototype.reportBasicModulus = function (a, b) {
     return ((+a % +b) + (+b)) % +b;
 };
