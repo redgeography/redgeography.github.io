@@ -5255,7 +5255,7 @@ Process.prototype.reportPower = function (a, b) {
 };
 
 Process.prototype.reportBasicPower = function (a, b) {
-    return Math.pow(+a, +b);
+    return +a ** +b;
 };
 
 Process.prototype.reportRandom = function (a, b) {
@@ -5866,11 +5866,10 @@ Process.prototype.reportBasicTextSplit = function (string, delimiter) {
             del = new RegExp(
                 del.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'),
                 "ig"
-			)
-	}
-    return new List(str.split(del));
-
-	}
+			);
+	};
+    };
+ return new List(str.split(del));
 };
 
 // Process - parsing primitives
