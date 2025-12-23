@@ -5255,7 +5255,7 @@ Process.prototype.reportPower = function (a, b) {
 };
 
 Process.prototype.reportBasicPower = function (a, b) {
-    return +a ** +b;
+    return (+a) ** +b;
 };
 
 Process.prototype.reportRandom = function (a, b) {
