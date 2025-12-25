@@ -1619,7 +1619,13 @@ Process.prototype.evaluate = function (
         }
     }
 };
-
+Process.prototype.assertRing = function (data) {
+	// assert a piece of data as a command / reporter / predicate / hat,
+	// but throw an error "expecting a ring but getting" like evaluate does
+if (!["command", "reporter", "predicate", "hat"].includes(this.reportTypeOf(data))) {
+	throw new Error("expecting a ring but getting" + data);
+}
+}
 Process.prototype.hyperEval = function (context, args) {
     // hyper-monadic deep-map
     // note: currently only literal inputs are supported in hyper-calls
@@ -3999,6 +4005,7 @@ Process.prototype.reportApplies = function(fn, type, list) {
     // #2 - optional | index
     // #3 - optional | source list
 this.assertType(list, "list");
+this.assertRing(fn);
 let array = list.itemsArray();
 let implicit = fn.inputs.length === 0;
 switch (this.inputOption(type)) {
@@ -4051,9 +4058,10 @@ Process.prototype.reportMmap = function (fn, lsts) {
 	// > > > #n - optional - source columns
 this.assertType(lsts, "list");
 lsts.itemsArray().forEach((element) => this.assertType(element, "list"));
+this.assertRing(fn);
 let cols = lsts.columns();
 let implicit = fn.inputs.length === 0;
-return new List(cols.itemsArray().map((element, index) => invoke(fn, implicit ? element : new List([...element.itemsArray(), index + 1, lsts, cols]))));
+return new List(cols.itemsArray().map((element, index) => invoke(fn, implicit ? element : new List([...element.itemsArray(), index + 1, lsts, cols]),null,null,null,this.capture(fn))));
 }
 Process.prototype.canRunOptimizedForCombine = function (aContext) {
     // private - used by reportCombine to check for optimizable
@@ -4121,6 +4129,8 @@ Process.prototype.reportGroup = function (list,fn) {
 	//		the third is a list of all the values matching the value after the key is applied
 	// #1 - element
 	//Wow, this code is hard to read...
+	this.assertType(list, "list");
+	this.assertRing(fn);
 return new List(Array.from(
 					Map.groupBy(
 						list.itemsArray(), ((element) => invoke(fn,new List([element]),null,null,null,this.capture(fn)))))
@@ -4131,6 +4141,8 @@ Process.prototype.reportSort = function (list, fn) {
 	//Sort - sort the items of a list based on a comparison predicate
 	// #1 - a
 	// #2 - b
+	this.assertType(list, "list");
+	this.assertRing(fn);
 	return new List(list.itemsArray().sort((a,b) => invoke(fn, new List([a,b]),null,null,null,null,proc.capture(fn)) === true ? -1 : 1))
 }
 Process.prototype.reportPipe = function (value, reporterList) {
@@ -10059,8 +10071,8 @@ Process.prototype.reportAtomicCombine = function (list, reporter) {
 };
 
 Process.prototype.reportAtomicSort = function (list, reporter) {
-
     this.assertType(list, 'list');
+	this.assertRing(reporter);
     var func;
 
     // try compiling the reporter into generic JavaScript
@@ -10089,6 +10101,7 @@ Process.prototype.reportAtomicSort = function (list, reporter) {
 };
 Process.prototype.reportAtomicGroup = function (list, reporter) {
     this.assertType(list, 'list');
+	this.assertRing(reporter);
     var result = [],
         dict = new Map(),
         groupKey,
