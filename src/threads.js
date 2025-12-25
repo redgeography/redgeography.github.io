@@ -4003,9 +4003,9 @@ let array = list.itemsArray();
 let implicit = fn.inputs.length === 0;
 switch (this.inputOption(type)) {
 case "any" :
-return array.some((element, index) => ((invoke(fn, implicit ? new List([element]) : new List([element, index + 1, list]))) === true));
+return array.some((element, index) => ((invoke(fn, implicit ? new List([element]) : new List([element, index + 1, list]),null,null,null,null,this.capture(fn))) === true));
 case "all":
-return array.every((element, index) => ((invoke(fn, implicit ? new List([element]) : new List([element, index + 1, list]))) === true));
+return array.every((element, index) => ((invoke(fn, implicit ? new List([element]) : new List([element, index + 1, list]),null,null,null,null,this.capture(fn))) === true));
 default:
 return false;
 }
@@ -4107,11 +4107,32 @@ Process.prototype.emptyListValueForCombine = function (selector) {
         return new List();
     case 'reportCrossproduct':
         return new List([new List()]);
+	case "reportQuotient":
+		return 1;
     default:
         return 0;
     }
 };
-
+Process.prototype.reportGroup = function (list,func) {
+	//Group - Group all items of a list by a key
+	// such that it's a list of lists:
+	//		the first item of the list represents a unique value
+	//		the second represents how many values match it from the key
+	//		the third is a list of all the values matching the value after the key is applied
+	// #1 - element
+	//Wow, this code is hard to read...
+return new List(Array.from(
+					Map.groupBy(
+						list.itemsArray(), ((element) => invoke(fn,new List([element]),null,null,null,this.capture(fn)))))
+								.map((sublist) => new List([sublist[0],sublist[1].length,new List(sublist[1])])
+								))
+}
+Process.prototype.reportSort = function (list, fn) {
+	//Sort - sort the items of a list based on a comparison predicate
+	// #1 - a
+	// #2 - b
+	return new List(list.itemsArray().sort((a,b) => invoke(fn, new List([a,b]),null,null,null,null,proc.capture(fn)) === true ? -1 : 1))
+}
 Process.prototype.reportPipe = function (value, reporterList) {
     // Pipe - answer an aggregation of channeling an initial value
     // through a sequence of monadic functions
@@ -10038,9 +10059,7 @@ Process.prototype.reportAtomicCombine = function (list, reporter) {
 };
 
 Process.prototype.reportAtomicSort = function (list, reporter) {
-	//Sort - sort the items of a list based on a comparison predicate
-	// #1 - a
-	// #2 - b
+
     this.assertType(list, 'list');
     var func;
 
@@ -10068,18 +10087,7 @@ Process.prototype.reportAtomicSort = function (list, reporter) {
         )
     );
 };
-
 Process.prototype.reportAtomicGroup = function (list, reporter) {
-	//Group - Group all items of a list by a key
-	// such that it's a list of lists:
-	//		the first item of the list represents a unique value
-	//		the second represents how many values match it from the key
-	//		the third is a list of all the values matching the value after the key is applied
-    // if the reporter uses formal parameters instead of implicit empty slots
-    // there are two additional optional parameters:
-    // #1 - element
-    // #2 - optional | index
-    // #3 - optional | source list
     this.assertType(list, 'list');
     var result = [],
         dict = new Map(),
@@ -10088,8 +10096,6 @@ Process.prototype.reportAtomicGroup = function (list, reporter) {
         len = src.length,
         func,
         i;
-	let implicit = reporter.inputs.length === 0;
-
     // try compiling the reporter into generic JavaScript
     // fall back to the morphic reporter if unsuccessful
     try {
@@ -10105,7 +10111,7 @@ Process.prototype.reportAtomicGroup = function (list, reporter) {
     for (i = 0; i < len; i += 1) {
         groupKey = invoke(
             func,
-            implicit ? new List([src[i]]) : new List([src[i], i + 1, list]),
+            new List([src[i]]),
             null,
             null,
             null,
