@@ -353,8 +353,6 @@ SyntaxElementMorph.prototype.labelParts = {
             'random' : ['random']
         }
     },
- "%f": {
-	 type
     '%note': {
         type: 'input',
         tags: 'numeric',
