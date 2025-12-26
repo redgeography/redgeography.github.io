@@ -353,6 +353,8 @@ SyntaxElementMorph.prototype.labelParts = {
             'random' : ['random']
         }
     },
+ "%f": {
+	 type
     '%note': {
         type: 'input',
         tags: 'numeric',
@@ -1041,6 +1043,9 @@ SyntaxElementMorph.prototype.labelParts = {
     '%b': {
         type: 'boolean'
     },
+	"%f": {
+	type: "function slot"
+	},
     '%boolUE': {
         type: 'boolean',
         tags: 'unevaluated'
@@ -2021,6 +2026,9 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
         case 'command slot':
             part = new CommandSlotMorph();
             break;
+		case "function slot":
+			part = new FunctionSlotMorph();
+			break;
         case 'ring':
             part = new RingMorph();
             part.color = SpriteMorph.prototype.blockColor.other;
