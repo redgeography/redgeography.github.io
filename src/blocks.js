@@ -378,6 +378,22 @@ SyntaxElementMorph.prototype.labelParts = {
         tags: 'read-only static',
         menu: 'extensionsMenu'
     },
+	"%ascdsc": {
+		// helper for an expandable
+		type: "input",
+		tags: "read-only static",
+		value: ["ascending"],
+		menu: {
+		ascending: ["ascending"],
+		descending: ["descending"]
+		}
+	},
+	"%acdcex":{
+	type: "multi",
+	tags: "static widget",
+	slots: "%ascdsc",
+	max: "1"
+	},
 	"%listflag": {
         type: "input",
         tags: "read-only static",
