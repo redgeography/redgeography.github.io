@@ -1623,7 +1623,7 @@ Process.prototype.assertRing = function (data) {
 	// assert a piece of data as a command / reporter / predicate / hat,
 	// but throw an error "expecting a ring but getting" like evaluate does
 if (!["command", "reporter", "predicate", "hat"].includes(this.reportTypeOf(data))) {
-	throw new Error("expecting a ring but getting" + data);
+	throw new Error("expecting a ring but getting " + data);
 }
 }
 Process.prototype.hyperEval = function (context, args) {
