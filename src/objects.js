@@ -2148,19 +2148,95 @@ SpriteMorph.prototype.primitiveBlocks = function () {
         reportNumbers: {
             type: 'reporter',
             category: 'lists',
-            spec: 'numbers from %n to %n',
+            spec: 'numbers from %n to %n %acdcex',
             defaults: [1, 10],
             code: 'range',
+			// ITEM 1 OF TYPE is so awkward!
+			// well, what can you do...
             src: `(
-                (prim t reportNumbers start end)
-                (report (zip (ring (
-                    (var result)
-                    (set result (list))
-                    (warp (for i nil nil
-                        (add (get i) (get result))))
-                    (report (get result))))
-                (get start) 0
-                (get end) 0)))`
+    (prim t reportNumbers start end type) 
+    (report 
+        (evaluateCustomBlock 
+            (ring (
+                (if 
+                    (= 
+                        (item 1 
+                            (get type)
+                        ) ascending
+                    ) 
+                    (report 
+                        (call 
+                            (ring 
+                                (ifThen 
+                                    (> 
+                                        (get start) 
+                                        (get end)
+                                    ) 
+                                    (list) 
+                                    (cons 
+                                        (get s) 
+                                        (call 
+                                            (this [script]) 
+                                            (+ 
+                                                (get s) 1
+                                            ) 
+                                            (get e)
+                                        )
+                                    )
+                                ) s e
+                            )
+                        )
+                    ) 
+                    (= 
+                        (item 1 
+                            (get type)
+                        ) descending
+                    ) 
+                    (report 
+                        (call 
+                            (ring 
+                                (ifThen 
+                                    (< 
+                                        (get start) 
+                                        (get end)
+                                    ) 
+                                    (list) 
+                                    (cons 
+                                        (get s) 
+                                        (call 
+                                            (this [script]) 
+                                            (- 
+                                                (get s) 1
+                                            ) 
+                                            (get e)
+                                        )
+                                    )
+                                ) s e
+                            )
+                        )
+                    )
+                ) 
+                (var result) 
+                (set result 
+                    (list)
+                ) 
+                (warp 
+                    (for i nil nil 
+                        (add 
+                            (get i) 
+                            (get result)
+                        )
+                    )
+                ) 
+                (report 
+                    (get result)
+                )
+            )) 
+            (get start) 0 
+            (get end) 0
+        )
+    )
+)`
         },
     /*
         reportListCombination: { // currently not in use
