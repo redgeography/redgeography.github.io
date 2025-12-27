@@ -2889,23 +2889,14 @@ Process.prototype.reportShuffled = function (data) {
 // Process non-HOF list primitives
 
 Process.prototype.reportNumbers = function (start, end, type) {
-    let fn;
 	switch (this.inputOption(type.at(1))) {
 		case "ascending":
-			fn = this.reportBasicNumbersAscending;
-			break;
+        return this.hyper(((strt, stp) => this.reportBasicNumbersAscending(strt, stp)), start, end)
 		case "descending":
-			fn = this.reportBasicNumbersDescending;
-			break;
+        return this.hyper(((strt, stp) => this.reportBasicNumbersDescending(strt, stp)), start, end)
 		default:
-			fn = this.reportBasicNumbers;
-			break;
+        return this.hyper(((strt, stp) => this.reportBasicNumbers(strt, stp)), start, end)
 	};
-    return this.hyper(
-        ((strt, stp) => fn(strt, stp)),
-        start,
-        end
-    );
 };
 Process.prototype.reportBasicNumbersAscending = function(start, end) {
 	this.assertType(start, "number");
